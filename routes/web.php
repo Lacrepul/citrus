@@ -17,4 +17,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/checkLists', 'CheckListController@index');
+Route::post('/checkList', 'CheckListController@store');
+Route::delete('/checkList/{checkList}', 'CheckListController@destroy');
