@@ -1,28 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div>
     @auth
-        <div class="container">
-<div class="alert alert-primary">        
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
-                        <div>
-                            namesdsdsaddasdsadasdasdasdasd
+        @foreach ($UserCheckLists as $checkList)
+            <div class="container mt-4">
+                <div class="card mb-3">
+                    <div class="card-body bg-light">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="row">
+                                    <div class="col-6 text-center">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    </div>
+                                    <div class="col-6 text-center">
+                                    <h5 class="card-title"><a href="">{{$checkList->name}}</a></h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-8 text-center">
+                                {{$checkList->description}}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div id="checkListDescription">
-                        dssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
+            </div> 
+        @endforeach
     @endauth
-</div>
 @endsection
