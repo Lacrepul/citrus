@@ -3,46 +3,47 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\CheckListsRepository;
 
 class CheckListController extends Controller
 {
   /**
    * Создание нового экземпляра контроллера.
-   *
-   * @return void
    */
-  public function __construct()
+  public function __construct(CheckListsRepository $checkLists)
   {
     $this->middleware('auth');
+
+    $this->checkLists = $checkLists;
   }
 
   /**
-  * Отображение списка всех задач пользователя.
-  *
-  * @param  Request  $request
-  * @return Response
+  * Отображение представления создания
   */
- public function index(Request $request)
- {
-   return view('checkLists.index');
- }
+  public function index()
+  {
+    return view('checkLists.index');
+  }
 
   /**
    * Создание новой задачи.
-   *
-   * @param  Request  $request
-   * @return Response
    */
   public function store(Request $request)
   {
     $this->validate($request, [
-      'name' => 'required|max:255',
+      'name' => 'required|max:15',
     ]);
 
-    $request->user()->checklists()->create([
+    $this->validate($request, [
+      'description' => 'required|max:255',
+    ]);
+
+    $request->user()->checkListsUserRelation()->create([
       'name' => $request->name,
+      'description' => $request->description,
+      'Main_check' => 0,
     ]);
 
-    return redirect('/checkLists');
+    return redirect('/');
   }
 }

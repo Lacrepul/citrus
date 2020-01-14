@@ -17,6 +17,8 @@ class CreateChecklistsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->string('name');
+            $table->string('description');
+            $table->tinyInteger('Main_check')/*->nullable()*/;
             $table->timestamps();
         });
     }

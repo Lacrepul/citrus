@@ -9,7 +9,7 @@
     @include('common.errors')
 
     <!-- Форма новой задачи -->
-    <form action="{{ url('checkList') }}" method="POST" class="form-horizontal">
+    <form action="{{ url('checkListStore') }}" method="POST" class="form-horizontal">
       {{ csrf_field() }}
 
       <!-- Имя задачи -->
@@ -17,8 +17,12 @@
         <label for="task" class="col-sm-3 control-label">Задача</label>
 
         <div class="col-sm-6">
-          <input type="text" name="name" id="task-name" class="form-control">
+          <input type="text" name="name" class="form-control">
         </div>
+      </div>
+
+      <div class="col-sm-6">
+          <input type="text" name="description" class="form-control">
       </div>
 
       <!-- Кнопка добавления задачи -->
@@ -31,6 +35,5 @@
       </div>
     </form>
   </div>
-
   <!-- TODO: Текущие задачи -->
 @endsection

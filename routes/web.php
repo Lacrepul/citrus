@@ -10,13 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
-
-Route::get('/checkLists', 'CheckListController@index');
-Route::post('/checkList', 'CheckListController@store');
+Route::get('/', 'WelcomeController@index'); //Представление главная страница
+Route::get('/checkListCreate', 'CheckListController@index')->name('create'); //Представление создания чек-листа
+Route::post('/checkListStore', 'CheckListController@store'); //Сохранить в базу
 Route::delete('/checkList/{checkList}', 'CheckListController@destroy');
+
+//
+Route::post('/checkFetch', 'CheckFetchController@check');
