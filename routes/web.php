@@ -19,3 +19,4 @@ Route::delete('/checkList/{checkList}', 'CheckListController@destroy');
 //
 Route::post('/checkFetch', 'CheckFetchController@check');
 Route::get('/mainLoadCheck', 'CheckFetchController@main');
+Route::get('/detail', 'DetailCheckListController@index');

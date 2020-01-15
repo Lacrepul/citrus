@@ -13,10 +13,4 @@ class CheckFetchController extends Controller{
         $updateMainCheck->Main_check = $request->value;
         $updateMainCheck->save();
     }
-
-    public function main(Request $request){
-        return view('welcome', [
-        'UserCheckLists' => $this->checkLists->forUser($request->user()),
-        ])->with('i', 1);
-    }
 }
