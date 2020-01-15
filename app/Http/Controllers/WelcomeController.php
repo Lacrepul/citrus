@@ -29,6 +29,6 @@ class WelcomeController extends Controller
   {
     return view('welcome', [
     'UserCheckLists' => $this->checkLists->forUser($request->user()),
-    ]);
+    ])->with('i', 1);
   }
 }

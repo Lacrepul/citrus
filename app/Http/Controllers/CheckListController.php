@@ -41,6 +41,7 @@ class CheckListController extends Controller
     $request->user()->checkListsUserRelation()->create([
       'name' => $request->name,
       'description' => $request->description,
+      'Main_check' => 0,
     ]);
 
     return redirect('/');

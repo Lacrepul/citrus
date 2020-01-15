@@ -15,3 +15,7 @@ Route::get('/', 'WelcomeController@index'); //Представление гла�
 Route::get('/checkListCreate', 'CheckListController@index')->name('create'); //Представление создания чек-листа
 Route::post('/checkListStore', 'CheckListController@store'); //Сохранить в базу
 Route::delete('/checkList/{checkList}', 'CheckListController@destroy');
+
+//
+Route::post('/checkFetch', 'CheckFetchController@check');
+Route::get('/mainLoadCheck', 'CheckFetchController@main');
