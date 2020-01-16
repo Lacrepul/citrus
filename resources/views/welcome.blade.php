@@ -13,7 +13,7 @@
                                         <input type="checkbox" onclick="checkEvery{{ $i }}()" class="form-check-input" id="mainCheck{{ $i }}">
                                     </div>
                                     <div class="col-6 text-center">
-                                    <h5 class="card-title"><a href="">{{$checkList->name}}</a></h5>
+                                    <h5 class="card-title"><a href="{{ route('detail', $checkList->id) }}">{{$checkList->name}}</a></h5>
                                     </div>
                                 </div>
                             </div>

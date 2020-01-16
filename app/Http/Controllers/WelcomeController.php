@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\CheckListsRepository;
 
-class WelcomeController extends Controller
-{
+class WelcomeController extends Controller{
     /**
    * Экземпляр TaskRepository.
    */
@@ -25,8 +24,7 @@ class WelcomeController extends Controller
   /**
   * Отображение списка всех задач пользователя.
   */
-  public function index(Request $request)
-  {
+  public function index(Request $request){
     return view('welcome', [
     'UserCheckLists' => $this->checkLists->forUser($request->user()),
     ])->with('i', 1);

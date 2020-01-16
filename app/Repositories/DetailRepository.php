@@ -2,15 +2,15 @@
 
 namespace App\Repositories;
 
-use App\User;
+use App\Checklist;
 
-class CheckListsRepository
+class DetailRepository
 {
   /**
    * Получить все задачи заданного пользователя.
    */
-  public function forUser(User $user){
-    return $user->checkListsUserRelation()
+  public function forCheckList(Checklist $checklist){
+    return $checklist->detailsChecklistRelation()
               ->orderBy('created_at', 'asc')
               ->get();
   }
