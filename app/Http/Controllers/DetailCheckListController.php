@@ -19,8 +19,7 @@ class DetailCheckListController extends Controller{
     function index(Request $request){
         $str = Checklist::find($request->id);
         return view('checkLists.detail', [
-            'CheckList' => $this->detail->forCheckList($str),
+            'details' => $this->detail->forCheckList($str),
             ]);
-        //return view('checkLists.detail')->with('checkList', $request);
     }
 }
