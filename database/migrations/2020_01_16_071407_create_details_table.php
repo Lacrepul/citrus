@@ -17,7 +17,7 @@ class CreateDetailsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('checklist_id')->unsigned()->index();
             $table->string('detailName');
-            $table->text('detailDescription');
+            $table->tinyInteger('Main_check');
             $table->tinyInteger('secondary_check1');
             $table->tinyInteger('secondary_check2');
             $table->tinyInteger('secondary_check3');

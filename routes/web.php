@@ -17,6 +17,6 @@ Route::post('/checkListStore', 'CheckListController@store'); //Сохранит�
 Route::delete('/checkList/{checkList}', 'CheckListController@destroy');
 
 //
-Route::post('/checkFetch', 'CheckFetchController@check');
-Route::get('/mainLoadCheck', 'CheckFetchController@main');
 Route::get('/detail/{id}', 'DetailCheckListController@index')->name('detail');
+Route::post('/detailFetch', 'DetailCheckListController@check');
+

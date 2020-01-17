@@ -4,7 +4,7 @@
 
   <!-- Bootstrap шаблон... -->
 
-  <div class="panel-body">
+
     <!-- Отображение ошибок проверки ввода -->
     @include('common.errors')
 
@@ -14,26 +14,52 @@
 
       <!-- Имя задачи -->
       <div class="form-group">
-        <label for="task" class="col-sm-3 control-label">Задача</label>
-
+        <label class="col-sm-3 control-label">Задача</label>
         <div class="col-sm-6">
           <input type="text" name="name" class="form-control">
         </div>
       </div>
 
-      <div class="col-sm-6">
-          <input type="text" name="description" class="form-control">
-      </div>
-
-      <!-- Кнопка добавления задачи -->
       <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-6">
-          <button type="submit" class="btn btn-default">
-            <i class="fa fa-plus"></i> Добавить задачу
-          </button>
+        <label class="col-sm-3 control-label">Краткое описание</label>
+        <div class="col-sm-6">
+            <input type="text" name="description" class="form-control">
         </div>
       </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-4">
+            <button type="button" onclick=createCheckboxes() id="addButton" class="btn btn-default">
+              <i class="fa fa-plus"></i> Add checkbox
+            </button>
+            <button type="submit" class="btn btn-default">
+              <i class="fa fa-plus"></i> Add check-list
+            </button>
+          </div>
+        </div>
+      </div>
+        <div class="container" id="place">
+        </div>
     </form>
-  </div>
-  <!-- TODO: Текущие задачи -->
+
+  <script>
+    var count = 0;
+      function createCheckboxes(){
+        if(count++ < 5){
+          var checkbox = document.createElement('input');
+          var x = document.createElement('br');
+          var formGroup = document.createElement('div');
+          formGroup.className = "form-group";
+          checkbox.type = "checkbox";
+          checkbox.name = "checkboxName";
+          checkbox.id = "checkboxId" + count;
+          place.appendChild(formGroup);
+          formGroup.appendChild(checkbox);
+          place.appendChild(x);
+        }else{
+          addButton.hidden = true;
+        }
+      }
+  </script>
 @endsection
