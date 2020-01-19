@@ -18,11 +18,17 @@ class CreateDetailsTable extends Migration
             $table->integer('checklist_id')->unsigned()->index();
             $table->string('detailName');
             $table->tinyInteger('Main_check');
+            $table->tinyInteger('secondary_check0');
             $table->tinyInteger('secondary_check1');
             $table->tinyInteger('secondary_check2');
             $table->tinyInteger('secondary_check3');
             $table->tinyInteger('secondary_check4');
-            $table->tinyInteger('secondary_check5');
+            $table->text('description');
+            $table->string('secondary_input0')->nullable();
+            $table->string('secondary_input1')->nullable();
+            $table->string('secondary_input2')->nullable();
+            $table->string('secondary_input3')->nullable();
+            $table->string('secondary_input4')->nullable();
             $table->timestamps();
         });
     }
