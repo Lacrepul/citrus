@@ -13,7 +13,7 @@
                         <div class="col-4">
                             <div class="row">
                                 <div class="col-6 text-center">
-                                    <input type="checkbox" onclick="checkEvery{{ $i }}()" class="form-check-input" id="mainCheck{{ $i }}">
+                                    <input type="checkbox" class="form-check-input" id="mainCheck" value="{{ $detail->id }}">
                                 </div>
                                 <div class="col-6 text-center">
                                     <h5 class="card-title">{{ $detail->detailName }}</h5>
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div hidden class="container" id='containerId'>
-            <div class="col text-center" id="placeForTextId">
+            <div class="col text-center" id="placeForTextId" value="{{ $detail->id }}">
                 <div id="description">
                     {{ $detail->description }}
                 </div>
@@ -100,32 +100,38 @@
             </div>
         </div>
     </div>
+    @endforeach
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            if(  {{ $detail->Main_check }} == 1 ){
-                document.getElementById('mainCheck{{ $i }}').checked = 'checked';
+                /**
+                Онклик для главных чекбоксов
+                */
+        document.addEventListener("DOMContentLoaded", function () {
+            var checkBoxesMain = document.querySelectorAll("#mainCheck");
+            checkBoxesMain.forEach(function(item, i){
+                item.addEventListener("click", mainCheck);
+            });
+
+            function mainCheck(){
+                var result;
+                var id = this.attributes[2].value;
+                if(this.checked == 1){
+                    result = 1;
+                }else{
+                    result = 0;
+                }
+                fetchCheckMain(id, result)
             }
-        });
 
-        /*document.addEventListener("DOMContentLoaded", () => {
-            if( {{ $detail->secondary_check5 }} == 0){
-                document.getElementById('secondCheck5{{ $i }}').checked = 'checked';
-            }
-        });*/
-
-//////////////////////////////Фетч для главных чекбоксов
-        function checkEvery{{ $i }}(){
-            let x = document.getElementById("mainCheck{{ $i++ }}").checked;
-            if(x){result = 1;}else{result = 0;}
-            fetchCheckMain();
-
-            async function fetchCheckMain(){
+                /**
+                Фетч для главных чекбоксов
+                */
+            async function fetchCheckMain(id, result){
                 let formData = new FormData();
                 formData.append('value', result);
-                formData.append('id', '{{ $detail->id }}' );
+                formData.append('id', id );
 
-                let response = await fetch('/detailFetch', {
+                let response = await fetch('/detailMainFetch', {
                     headers : {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                     },
@@ -133,53 +139,59 @@
                     body: formData
                 });
             }
-        }
-    </script>
-    @endforeach
 
-    <script>
-//////////////////////////////
+        });
+
+                /**
+                Онклик для дополнительных чекбоксов
+                */
         document.addEventListener("DOMContentLoaded", function () {
             var checkBoxes = document.querySelectorAll("#secondCheck");
+            var places = document.querySelectorAll("#placeForTextId");
 
             checkBoxes.forEach(function(item, i){
                 item.addEventListener("click", check);
-                function check(){
-                    if(checkBoxes[i].checked){
-                        resultat = 1;
-                    }else{
-                        resultat = 0;
-                    }
-                    let id = checkBoxes[i].attributes[2].value;
+            });
 
-                    let dig = i;
-                    if(dig > 4){
-                        dig -= 5;
-                    }
-
-                    fetchCheckSecondary();
-////////////////////////////Фетч для дополнительных чекбоксов
-                    async function fetchCheckSecondary(){
-     
-                        let formData = new FormData();
-                        formData.append('value', resultat);
-                        formData.append('id', id );
-                        formData.append('secondaryId', dig );
-
-                        let response = await fetch('/detailSecondaryFetch', {
-                            headers : {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                            },
-                            method: 'POST',
-                            body: formData
-                        });
-
-                        result = await response.text();
+            function check(){
+                var resultat;
+                for(let i=0; i < places.length; i++){
+                    if(Array.prototype.indexOf.call(places[i].querySelectorAll("#secondCheck"), event.target) != -1){
+                        var id = places[i].attributes[1].value;
+                        var indexSecondary = (Array.prototype.indexOf.call(places[i].querySelectorAll("#secondCheck"), event.target));
                     }
                 }
-            });
+                if(this.checked == 1){
+                    resultat = 1;
+                }else{
+                    resultat = 0;
+                }
+                fetchCheckSecondary(id, resultat, indexSecondary);
+            }
+
+                /**
+                Фетч для дополнительных чекбоксов
+                */
+            async function fetchCheckSecondary(id, resultat, indexSecondary){
+                let formData = new FormData();
+                formData.append('value', resultat);
+                formData.append('id', id );
+                formData.append('secondaryId', indexSecondary );
+
+                let response = await fetch('/detailSecondaryFetch', {
+                    headers : {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    },
+                    method: 'POST',
+                    body: formData
+                });
+                result = await response.text();
+            }
         });
-//////////////////////Показать\скрыть выпадающее меню
+
+                /**
+                Показать\скрыть выпадающее меню
+                */
         document.addEventListener("DOMContentLoaded", function () {
             var detailsButt = document.querySelectorAll("#detailId");
             detailsButt.forEach(function(item, i){
@@ -193,7 +205,10 @@
                     }
                 }
             });
-////////////////////Регулярка для ссылки
+
+                /**
+                Регулярка для ссылки
+                */
             var places = document.querySelectorAll("#description");
             places.forEach(function(item, i){
                 var text = places[i].innerText;
@@ -203,8 +218,11 @@
                 item.innerHTML = text;
             });
         });
-///////////////////////
-        document.addEventListener("DOMContentLoaded", function () {
+
+                /**
+                При загрузке страницы, отобразить состояния чекбоксов
+                */
+            document.addEventListener("DOMContentLoaded", function () {
             let response = fetch( '/showSecondary', {
                 method:'get',
                 headers: {
@@ -213,40 +231,33 @@
             })
             .then(response => {
                 return response.json();
-                
             })
             .then(result => {
-                var checkBoxes = document.querySelectorAll("#secondCheck");
-                //
-                    //console.log(result[1]['id']); // 2
-                    //console.log(checkBoxes[0].value); // 10
-                //}
-        for(var w = 0; w < 10; w++){
-            for(var q = 0; q < 2; q++){
-                if(result[q]['id'] == checkBoxes[w].value){
-                    for(var j = 0; j < 5; j++){
-                        if(result[q]['secondary_check' + j] == 1){
-                            //checkBoxes[w].checked = 'checked';
-                            console.log(w);
-                            break;
-                        }
+                var places = document.querySelectorAll("#placeForTextId");
+                var checkBoxes = document.querySelectorAll("#secondCheck");             
+                var mainCheckBoxes = document.querySelectorAll("#mainCheck");             
+                var arrDataBaseChecks = [];
+
+                /**
+                Отобразить главные чекбоксы
+                */
+                for(var q = 0; q < result.length; q++){ 
+                    if(result[q].Main_check == 1){  
+                        mainCheckBoxes[q].checked = 'checked';
                     }
-                    //console.log(checkBoxes[w]);
+
+                /**
+                Отобразить второстепенные чекбоксы
+                */
+                    for(let w = 0; w < places[q].querySelectorAll("#secondCheck").length; w++){ 
+                        arrDataBaseChecks.push(result[q]['secondary_check' + w]);
+                    }
                 }
-            }
-        }
-            
-                
-
-
-                    //if(result[j]['secondary_check0'] == 1){
-                    //    checkBoxes[i].checked = 'checked';
-                    //}
-                    //checkBoxes[i].checked = 'checked';
-                    //console.log(result[0]['secondary_check' + i]);
-                    //console.log(result[1]['secondary_check' + i]);
-
-                //console.log(result);
+                for(let i = 0; i < checkBoxes.length; i++){
+                    if(arrDataBaseChecks[i] == 1){
+                        checkBoxes[i].checked = 'checked';
+                    };
+                }
             });
         });
 

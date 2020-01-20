@@ -29,6 +29,13 @@ class DetailCheckListController extends Controller{
     $updateMainCheck->save();
   }
 
+  public function checkMain(Request $request){
+    $id = $request['id'];
+    $updateMainCheck = Detail::find($id);
+    $updateMainCheck->Main_check = $request->value;
+    $updateMainCheck->save();
+  }
+
   public function checkSecondary(Request $request){
     $id = $request['id'];
     $checkBoxid = 'secondary_check'.$request->secondaryId;

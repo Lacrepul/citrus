@@ -21,7 +21,8 @@ Route::delete('/checkList/{checkList}', 'CheckListController@destroy');
 //
 Route::get('/detail/{id}', 'DetailCheckListController@index')->name('detail');
 Route::post('/detailFetch', 'DetailCheckListController@check');
-Route::post('/detailSecondaryFetch', 'DetailCheckListController@checkSecondary');
+Route::post('/detailSecondaryFetch', 'DetailCheckListController@checkSecondary'); //check secondary
+Route::post('/detailMainFetch', 'DetailCheckListController@checkMain'); //check main
 Route::get('/detailCreate/{id}', 'DetailCheckListController@createForm')->name('detailCreate');
 Route::post('/detailCreate', 'DetailCheckListController@store');
-Route::get('/showSecondary', 'DetailCheckListController@showSecondaryCheckboxes');
+Route::get('/showSecondary', 'DetailCheckListController@showSecondaryCheckboxes'); //показать main and secondary чекбоксы
