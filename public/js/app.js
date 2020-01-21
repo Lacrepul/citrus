@@ -49685,8 +49685,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\openServer\OSPanel\domains\citrusLaravel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\openServer\OSPanel\domains\citrusLaravel\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\OpenServerDistr\OSPanel\domains\CitrusLaravel\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\OpenServerDistr\OSPanel\domains\CitrusLaravel\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

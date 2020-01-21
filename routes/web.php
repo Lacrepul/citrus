@@ -14,15 +14,15 @@ Auth::routes();
 
 //
 Route::get('/', 'WelcomeController@index'); //Представление главная страница
-Route::get('/checkListCreate', 'CheckListController@index')->name('create'); //Представление создания чек-листа
-Route::post('/checkListStore', 'CheckListController@store'); //Сохранить в базу
-Route::delete('/checkList/{checkList}', 'CheckListController@destroy');
+Route::get('/checkListCreate', 'CheckListController@indexCreate')->name('create'); //Представление создания чек-листа
+Route::post('/checkListStore', 'CheckListController@store'); //Сохранить в базу чек-лист
 
 //
-Route::get('/detail/{id}', 'DetailCheckListController@index')->name('detail');
-Route::post('/detailFetch', 'DetailCheckListController@check');
-Route::post('/detailSecondaryFetch', 'DetailCheckListController@checkSecondary'); //check secondary
-Route::post('/detailMainFetch', 'DetailCheckListController@checkMain'); //check main
-Route::get('/detailCreate/{id}', 'DetailCheckListController@createForm')->name('detailCreate');
-Route::post('/detailCreate', 'DetailCheckListController@store');
+Route::get('/detail/{id}', 'DetailCheckListController@index')->name('detail'); //Представление формы детали чек-листа
+Route::get('/detailCreate/{id}', 'DetailCheckListController@createForm')->name('detailCreate'); //Представление формы создания детального листа
 Route::get('/showSecondary', 'DetailCheckListController@showSecondaryCheckboxes'); //показать main and secondary чекбоксы
+
+//
+Route::post('/detailSecondaryFetch', 'DetailCheckListController@checkSecondary'); //Отправить чекбоксы дополнительные
+Route::post('/detailMainFetch', 'DetailCheckListController@checkMain'); //Отправить чекбоксы основные
+Route::post('/detailCreate', 'DetailCheckListController@store'); //Сохранить в базу детальный лист 

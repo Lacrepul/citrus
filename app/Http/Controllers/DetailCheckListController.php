@@ -14,21 +14,20 @@ class DetailCheckListController extends Controller{
   {
     $this->detail = $detail;
   }
-  
+
+    /**
+     * Представление детального листа
+     */
   function index(Request $request){
       $str = Checklist::find($request->id);
-      return view('checkLists.detail', [
+      return view('details.detail', [
           'details' => $this->detail->forCheckList($str)
       ], ['str' => $str])->with('i', 1);
   }
 
-  public function check(Request $request){
-    $id = $request['id'];
-    $updateMainCheck = Detail::find($id);
-    $updateMainCheck->Main_check = $request->value;
-    $updateMainCheck->save();
-  }
-
+    /**
+     * Занести в базу отмеченные главные чекбоксы
+     */
   public function checkMain(Request $request){
     $id = $request['id'];
     $updateMainCheck = Detail::find($id);
@@ -36,6 +35,9 @@ class DetailCheckListController extends Controller{
     $updateMainCheck->save();
   }
 
+    /**
+     * Занести в базу отмеченные дополнительные чекбоксы
+     */
   public function checkSecondary(Request $request){
     $id = $request['id'];
     $checkBoxid = 'secondary_check'.$request->secondaryId;
@@ -47,12 +49,17 @@ class DetailCheckListController extends Controller{
     return $checkBoxid;
   }
   
-  //create
+    /**
+     * Представление создания детального листа
+     */
   function createForm(Request $request){
-    return view('checkLists.detailCreate', [
+    return view('details.detailCreate', [
       'detail' => $request]);
   }
 
+    /**
+     * Сохранить в базу детальный лист
+     */
   public function store(Request $request)
   {
     $this->validate($request, [
@@ -60,10 +67,10 @@ class DetailCheckListController extends Controller{
     ]);
 
     $this->validate($request, [
-      'description' => 'required|max:2000',
+      'description' => 'required|max:1000',
     ]);
 
-    $id = $request['id']; // ID checkkist
+    $id = $request['id'];
     $updatedChecklist = Checklist::find($id);
     $updatedChecklist->detailsChecklistRelation()->create([
       'detailName' => $request->name,
@@ -82,7 +89,10 @@ class DetailCheckListController extends Controller{
     ]);
     return redirect('/detail/'.$id);
   }
-
+  
+  /**
+   * Показать отмеченные чекбоксы
+   */
   function showSecondaryCheckboxes(){
     return response()->json(Detail::all());
   }

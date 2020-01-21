@@ -18,11 +18,11 @@ class CheckListController extends Controller
   }
 
   /**
-  * Отображение представления создания
+  * Отображение представления создания check-list
   */
-  public function index()
+  public function indexCreate()
   {
-    return view('checkLists.index');
+    return view('checkLists.createCheckList');
   }
 
   /**
@@ -31,17 +31,16 @@ class CheckListController extends Controller
   public function store(Request $request)
   {
     $this->validate($request, [
-      'name' => 'required|max:15',
+      'name' => 'required|max:50',
     ]);
 
     $this->validate($request, [
-      'description' => 'required|max:255',
+      'description' => 'required|max:400',
     ]);
 
     $request->user()->checkListsUserRelation()->create([
       'name' => $request->name,
       'description' => $request->description,
-      'Main_check' => 0,
     ]);
 
     return redirect('/');

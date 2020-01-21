@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('common.errors')
-
-
+    @include('errors.errors')
     <form action="{{ url('checkListStore') }}" method="POST" class="form-horizontal">
       {{ csrf_field() }}
 
@@ -17,7 +15,7 @@
       <div class="form-group">
         <label class="col-sm-3 control-label">Краткое описание</label>
         <div class="col-sm-6">
-            <input type="text" name="description" class="form-control">
+            <textarea rows="6" name="description" class="form-control"> </textarea>
         </div>
       </div>
 

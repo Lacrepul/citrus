@@ -7,11 +7,28 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>CheckBoxLists</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/detailCreate.js') }}"></script>
+    <script src="{{ asset('js/detailMainChecks.js') }}"></script>
+    <script src="{{ asset('js/detailShows.js') }}"></script>
+    <script src="{{ asset('js/detailSecondaryChecks.js') }}"></script>
 
+
+    <script>
+        if (window.location.pathname.match(/detailCreate/) == 'detailCreate'){
+            document.addEventListener("DOMContentLoaded", function () {
+                createDetailCreate.detailCreateScripts();
+            });
+        }else if(window.location.pathname.match(/detail/) == 'detail'){
+            document.addEventListener("DOMContentLoaded", function () {
+                createDetailShows.detailshows();
+                createDetailMainChecks.detailMainChecks();
+                createDetailSecondaryChecks.detailSecondaryChecks();
+            });
+        }
+    </script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -41,7 +58,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+                CheckBoxList
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>

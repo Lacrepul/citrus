@@ -6,9 +6,6 @@ use Illuminate\Http\Request;
 use App\Repositories\CheckListsRepository;
 
 class WelcomeController extends Controller{
-    /**
-   * Экземпляр TaskRepository.
-   */
   protected $checkLists;
 
   /**
@@ -25,7 +22,7 @@ class WelcomeController extends Controller{
   * Отображение списка всех задач пользователя.
   */
   public function index(Request $request){
-    return view('welcome', [
+    return view('checkLists.checkList', [
     'UserCheckLists' => $this->checkLists->forUser($request->user()),
     ]);
   }
